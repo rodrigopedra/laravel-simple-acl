@@ -13,12 +13,7 @@ class CreatePermissionRoleTable extends Migration
      */
     public function up()
     {
-        $userClassName = config( 'simple-acl.user_class' );
-
-        /** @var \Illuminate\Database\Eloquent\Model $userModel */
-        $userModel = new $userClassName;
-
-        Schema::connection( $userModel->getConnectionName() )
+        Schema::connection( 'simple-acl' )
             ->create( 'permission_role', function ( Blueprint $table ) {
                 $table->unsignedInteger( 'permission_id' );
                 $table->unsignedInteger( 'role_id' );
@@ -39,11 +34,6 @@ class CreatePermissionRoleTable extends Migration
      */
     public function down()
     {
-        $userClassName = config( 'simple-acl.user_class' );
-
-        /** @var \Illuminate\Database\Eloquent\Model $userModel */
-        $userModel = new $userClassName;
-
-        Schema::connection( $userModel->getConnectionName() )->dropIfExists( 'permission_role' );
+        Schema::connection( 'simple-acl' )->dropIfExists( 'permission_role' );
     }
 }

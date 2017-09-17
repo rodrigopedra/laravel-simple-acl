@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'user-class' => 'App\\User',
+    'db-connection' => null,
+    'user-class'    => 'App\\User',
 ];

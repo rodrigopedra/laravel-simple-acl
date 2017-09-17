@@ -28,18 +28,16 @@ class SimpleACLServiceProvider extends ServiceProvider
         /** @var \Illuminate\Config\Repository $config */
         $config = $this->app[ 'config' ];
 
-        $userClassName = $config->get( 'simple-acl.user-class' );
-
-        /** @var \Illuminate\Database\Eloquent\Model $userModel */
-        $userModel  = ( new $userClassName );
-        $connection = $userModel->getConnectionName();
-
-        $settings = $config->get( "database.connections.{$connection}", null );
+        $connection = $config->get( 'simple-acl.db-connection' ) ?: $config->get( 'database.default' );
+        $settings   = $config->get( "database.connections.{$connection}", null );
 
         if (is_null( $settings )) {
             throw new RuntimeException( 'Invalid database connection' );
         }
 
-        $config->set( [ 'database.connections.simple-acl' => $settings ] );
+        $config->set( [
+            'simple-acl.db-connection'        => $connection,
+            'database.connections.simple-acl' => $settings
+        ] );
     }
 }

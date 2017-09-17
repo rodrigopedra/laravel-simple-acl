@@ -13,12 +13,12 @@ class CreatePermissionUserTable extends Migration
      */
     public function up()
     {
-        $userClassName = config( 'simple-acl.user_class' );
+        $userClassName = config( 'simple-acl.user-class' );
 
         /** @var \Illuminate\Database\Eloquent\Model $userModel */
         $userModel = new $userClassName;
 
-        Schema::connection( $userModel->getConnectionName() )
+        Schema::connection( 'simple-acl' )
             ->create( 'permission_user', function ( Blueprint $table ) use ( $userModel ) {
                 $userForeignKey = $userModel->getForeignKey();
 
@@ -44,11 +44,6 @@ class CreatePermissionUserTable extends Migration
      */
     public function down()
     {
-        $userClassName = config( 'simple-acl.user_class' );
-
-        /** @var \Illuminate\Database\Eloquent\Model $userModel */
-        $userModel = new $userClassName;
-
-        Schema::connection( $userModel->getConnectionName() )->dropIfExists( 'permission_user' );
+        Schema::connection( 'simple-acl' )->dropIfExists( 'permission_user' );
     }
 }

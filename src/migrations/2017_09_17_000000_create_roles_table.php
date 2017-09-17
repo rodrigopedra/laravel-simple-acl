@@ -13,12 +13,7 @@ class CreateRolesTable extends Migration
      */
     public function up()
     {
-        $userClassName = config( 'simple-acl.user_class' );
-
-        /** @var \Illuminate\Database\Eloquent\Model $userModel */
-        $userModel = new $userClassName;
-
-        Schema::connection( $userModel->getConnectionName() )
+        Schema::connection( 'simple-acl' )
             ->create( 'roles', function ( Blueprint $table ) {
                 $table->increments( 'id' );
 
@@ -39,11 +34,6 @@ class CreateRolesTable extends Migration
      */
     public function down()
     {
-        $userClassName = config( 'simple-acl.user_class' );
-
-        /** @var \Illuminate\Database\Eloquent\Model $userModel */
-        $userModel = new $userClassName;
-
-        Schema::connection( $userModel->getConnectionName() )->dropIfExists( 'roles' );
+        Schema::connection( 'simple-acl' )->dropIfExists( 'roles' );
     }
 }
