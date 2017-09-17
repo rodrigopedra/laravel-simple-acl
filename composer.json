@@ -14,13 +14,12 @@
   ],
   "autoload": {
     "psr-4": {
-      "RodrigoPedra\\": "src/"
+      "RodrigoPedra\\LaravelSimpleACL\\": "src/LaravelSimpleACL/"
     }
   },
   "require": {
     "php": ">=5.5.0",
     "illuminate/support": "^5.4|^5.5",
-    "illuminate/contracts": "^5.4|^5.5",
     "illuminate/config": "^5.4|^5.5",
     "illuminate/database": "^5.4|^5.5",
     "illuminate/http": "^5.4|^5.5"
