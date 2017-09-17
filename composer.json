@@ -1,0 +1,35 @@
+{
+  "name": "rodrigopedra/laravel-simple-acl",
+  "description": "Laravel Simple ACL",
+  "keywords": [
+    "Laravel",
+    "acl"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Rodrigo Pedra Brum",
+      "email": "rodrigo.pedra@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "RodrigoPedra\\": "src/"
+    }
+  },
+  "require": {
+    "php": ">=5.5.0",
+    "illuminate/support": "^5.4|^5.5",
+    "illuminate/contracts": "^5.4|^5.5",
+    "illuminate/config": "^5.4|^5.5",
+    "illuminate/database": "^5.4|^5.5",
+    "illuminate/http": "^5.4|^5.5"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "RodrigoPedra\\LaravelSimpleACL\\SimpleACLServiceProvider"
+      ]
+    }
+  }
+}
