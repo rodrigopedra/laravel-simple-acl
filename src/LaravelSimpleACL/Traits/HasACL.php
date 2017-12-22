@@ -3,6 +3,7 @@
 namespace RodrigoPedra\LaravelSimpleACL\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Cache;
 use RodrigoPedra\LaravelSimpleACL\Models\Permission;
 use RodrigoPedra\LaravelSimpleACL\Models\Role;
 
@@ -38,6 +39,8 @@ trait HasACL
 
         $this->permissions()->sync( $permissionsIds );
 
+        Cache::forget( $this->getACLCacheKey( 'permissions' ) );
+
         return $this;
     }
 
@@ -49,6 +52,9 @@ trait HasACL
 
         $role->attachUser( $this );
 
+        Cache::forget( $this->getACLCacheKey( 'roles' ) );
+        Cache::forget( $this->getACLCacheKey( 'permissions' ) );
+
         return $this;
     }
 
@@ -59,6 +65,9 @@ trait HasACL
         }
 
         $role->detachUser( $this );
+
+        Cache::forget( $this->getACLCacheKey( 'roles' ) );
+        Cache::forget( $this->getACLCacheKey( 'permissions' ) );
 
         return $this;
     }
@@ -123,5 +132,32 @@ trait HasACL
         } );
 
         return $builder;
+    }
+
+    public function loadACL()
+    {
+        $this->setRelation( 'roles', value( function () {
+            return Cache::tags( [ 'acl' ] )->rememberForever( $this->getACLCacheKey( 'roles' ), function () {
+                return $this->roles()->get();
+            } );
+        } ) );
+
+        $this->setRelation( 'permissions', value( function () {
+            return Cache::tags( [ 'acl' ] )->rememberForever( $this->getACLCacheKey( 'permissions' ), function () {
+                return $this->permissions()->get();
+            } );
+        } ) );
+    }
+
+    public static function clearACLCache()
+    {
+        Cache::tags( [ 'acl' ] )->flush();
+
+        return true;
+    }
+
+    protected function getACLCacheKey( $label )
+    {
+        return 'acl.' . $this->id . '.' . $label;
     }
 }
