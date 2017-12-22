@@ -30,6 +30,9 @@ trait HasACL
         unset( $this->roles );
         unset( $this->permissions );
 
+        Cache::forget( $this->getACLCacheKey( 'roles' ) );
+        Cache::forget( $this->getACLCacheKey( 'permissions' ) );
+
         $permissionsIds = $this->roles()->with( 'permissions' )->get()
             ->pluck( 'permissions' )
             ->flatten( 1 )
@@ -38,8 +41,6 @@ trait HasACL
             ->toArray();
 
         $this->permissions()->sync( $permissionsIds );
-
-        Cache::forget( $this->getACLCacheKey( 'permissions' ) );
 
         return $this;
     }
@@ -52,8 +53,7 @@ trait HasACL
 
         $role->attachUser( $this );
 
-        Cache::forget( $this->getACLCacheKey( 'roles' ) );
-        Cache::forget( $this->getACLCacheKey( 'permissions' ) );
+        $this->rebuildPermissions();
 
         return $this;
     }
@@ -66,8 +66,7 @@ trait HasACL
 
         $role->detachUser( $this );
 
-        Cache::forget( $this->getACLCacheKey( 'roles' ) );
-        Cache::forget( $this->getACLCacheKey( 'permissions' ) );
+        $this->rebuildPermissions();
 
         return $this;
     }
