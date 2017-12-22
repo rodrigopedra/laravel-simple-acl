@@ -134,7 +134,7 @@ trait HasACL
         return $builder;
     }
 
-    public function loadACL()
+    public function loadACLCache()
     {
         $this->setRelation( 'roles', value( function () {
             return Cache::tags( [ 'acl' ] )->rememberForever( $this->getACLCacheKey( 'roles' ), function () {
