@@ -30,8 +30,8 @@ trait HasACL
         unset( $this->roles );
         unset( $this->permissions );
 
-        Cache::forget( $this->getACLCacheKey( 'roles' ) );
-        Cache::forget( $this->getACLCacheKey( 'permissions' ) );
+        Cache::tags( [ 'acl' ] )->forget( $this->getACLCacheKey( 'roles' ) );
+        Cache::tags( [ 'acl' ] )->forget( $this->getACLCacheKey( 'permissions' ) );
 
         $permissionsIds = $this->roles()->with( 'permissions' )->get()
             ->pluck( 'permissions' )
