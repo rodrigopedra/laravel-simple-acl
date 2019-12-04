@@ -19,10 +19,10 @@
   },
   "require": {
     "php": ">=5.5.0",
-    "illuminate/support": "^5.4|^5.5",
-    "illuminate/config": "^5.4|^5.5",
-    "illuminate/database": "^5.4|^5.5",
-    "illuminate/http": "^5.4|^5.5"
+    "illuminate/support": "^5.4|^6.0",
+    "illuminate/config": "^5.4|^6.0",
+    "illuminate/database": "^5.4|^6.0",
+    "illuminate/http": "^5.4|^6.0"
   },
   "extra": {
     "laravel": {
