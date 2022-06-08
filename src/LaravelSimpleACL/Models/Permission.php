@@ -11,7 +11,7 @@ class Permission extends Model
     use SoftDeletes;
 
     protected $connection = 'simple-acl';
-    protected $table      = 'permissions';
+    protected $table = 'permissions';
 
     protected $fillable = [
         'label',
@@ -20,32 +20,32 @@ class Permission extends Model
     ];
 
     protected $casts = [
-        'id'         => 'integer',
+        'id' => 'integer',
         'sort_index' => 'integer',
     ];
 
-    protected $dates = [ 'deleted_at' ];
+    protected $dates = ['deleted_at'];
 
     public function roles()
     {
-        return $this->belongsToMany( Role::class, 'permission_role' )->withTimestamps();
+        return $this->belongsToMany(Role::class, 'permission_role')->withTimestamps();
     }
 
     public function users()
     {
-        return $this->belongsToMany( config( 'simple-acl.user-class' ), 'permission_user' )->withTimestamps();
+        return $this->belongsToMany(config('simple-acl.user-class'), 'permission_user')->withTimestamps();
     }
 
-    public function scopeHasLabel( Builder $builder, $label )
+    public function scopeHasLabel(Builder $builder, $label)
     {
-        $builder->where( 'label', $label );
+        $builder->where('label', $label);
 
         return $builder;
     }
 
-    public function scopeOrdered( Builder $builder )
+    public function scopeOrdered(Builder $builder)
     {
-        $builder->orderBy( 'sort_index' )->orderBy( 'description' );
+        $builder->orderBy('sort_index')->orderBy('description');
 
         return $builder;
     }

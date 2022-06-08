@@ -13,18 +13,18 @@ class CreatePermissionsTable extends Migration
      */
     public function up()
     {
-        Schema::connection( 'simple-acl' )
-            ->create( 'permissions', function ( Blueprint $table ) {
-                $table->increments( 'id' );
+        Schema::connection('simple-acl')
+            ->create('permissions', function (Blueprint $table) {
+                $table->increments('id');
 
-                $table->unsignedSmallInteger( 'sort_index' )->nullable();
+                $table->unsignedSmallInteger('sort_index')->nullable();
 
-                $table->string( 'label' )->unique();
-                $table->string( 'description' );
+                $table->string('label')->unique();
+                $table->string('description');
 
                 $table->timestamps();
                 $table->softDeletes();
-            } );
+            });
     }
 
     /**
@@ -34,6 +34,6 @@ class CreatePermissionsTable extends Migration
      */
     public function down()
     {
-        Schema::connection( 'simple-acl' )->dropIfExists( 'permissions' );
+        Schema::connection('simple-acl')->dropIfExists('permissions');
     }
 }

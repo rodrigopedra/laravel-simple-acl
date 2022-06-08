@@ -11,7 +11,7 @@ class Role extends Model
     use SoftDeletes;
 
     protected $connection = 'simple-acl';
-    protected $table      = 'roles';
+    protected $table = 'roles';
 
     protected $fillable = [
         'label',
@@ -20,79 +20,79 @@ class Role extends Model
     ];
 
     protected $casts = [
-        'id'         => 'integer',
+        'id' => 'integer',
         'sort_index' => 'integer',
     ];
 
-    protected $dates = [ 'deleted_at' ];
+    protected $dates = ['deleted_at'];
 
     public function permissions()
     {
-        return $this->belongsToMany( Permission::class, 'permission_role' )->withTimestamps();
+        return $this->belongsToMany(Permission::class, 'permission_role')->withTimestamps();
     }
 
     public function users()
     {
-        return $this->belongsToMany( config( 'simple-acl.user-class' ), 'role_user' )->withTimestamps();
+        return $this->belongsToMany(config('simple-acl.user-class'), 'role_user')->withTimestamps();
     }
 
-    public function attachPermission( Permission $permission )
+    public function attachPermission(Permission $permission)
     {
-        unset( $this->permissions );
-        unset( $permission->roles );
-        unset( $permission->users );
+        unset($this->permissions);
+        unset($permission->roles);
+        unset($permission->users);
 
-        $this->permissions()->attach( $permission->id );
+        $this->permissions()->attach($permission->id);
 
         $this->rebuildUsersPermissions();
     }
 
-    public function detachPermission( Permission $permission )
+    public function detachPermission(Permission $permission)
     {
-        unset( $this->permissions );
-        unset( $permission->roles );
-        unset( $permission->users );
+        unset($this->permissions);
+        unset($permission->roles);
+        unset($permission->users);
 
-        $this->permissions()->detach( $permission->id );
+        $this->permissions()->detach($permission->id);
 
         $this->rebuildUsersPermissions();
     }
 
-    public function attachUser( Model $user )
+    public function attachUser(Model $user)
     {
-        unset( $this->users );
+        unset($this->users);
 
-        $this->users()->sync( [ $user->id ], false );
+        $this->users()->sync([$user->id], false);
 
         $user->rebuildPermissions();
     }
 
-    public function detachUser( Model $user )
+    public function detachUser(Model $user)
     {
-        unset( $this->users );
+        unset($this->users);
 
-        $this->users()->detach( $user->id );
+        $this->users()->detach($user->id);
 
         $user->rebuildPermissions();
     }
 
     public function rebuildUsersPermissions()
     {
-        $this->users()->get()->each( function ( Model $user ) {
+        $this->users()->get()->each(function (Model $user) {
             $user->rebuildPermissions();
-        } );
+        });
     }
 
-    public function scopeHasLabel( Builder $builder, $label )
+    public function scopeHasLabel(Builder $builder, $label)
     {
-        $builder->where( 'label', $label );
+        $builder->where('label', $label);
 
         return $builder;
     }
 
-    public function scopeOrdered( Builder $builder )
+    public function scopeOrdered(Builder $builder)
     {
-        $builder->orderBy( 'sort_index' )->orderBy( 'description' );
+        $builder->orderBy('sort_index')->orderBy('description');
 
         return $builder;
     }

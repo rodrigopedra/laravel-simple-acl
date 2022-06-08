@@ -1,34 +1,34 @@
 {
-  "name": "rodrigopedra/laravel-simple-acl",
-  "description": "Laravel Simple ACL",
-  "keywords": [
-    "Laravel",
-    "acl"
-  ],
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Rodrigo Pedra Brum",
-      "email": "rodrigo.pedra@gmail.com"
+    "name": "rodrigopedra/laravel-simple-acl",
+    "description": "Laravel Simple ACL",
+    "keywords": [
+        "Laravel",
+        "acl"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Rodrigo Pedra Brum",
+            "email": "rodrigo.pedra@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "RodrigoPedra\\LaravelSimpleACL\\": "src/LaravelSimpleACL/"
+        }
+    },
+    "require": {
+        "php": "^7.2.5|^8.0",
+        "illuminate/support": "^6.20.12|^7.30.4|^8.22.1|^9.0",
+        "illuminate/config": "^6.20.12|^7.30.4|^8.22.1|^9.0",
+        "illuminate/database": "^6.20.12|^7.30.4|^8.22.1|^9.0",
+        "illuminate/http": "^6.20.12|^7.30.4|^8.22.1|^9.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "RodrigoPedra\\LaravelSimpleACL\\SimpleACLServiceProvider"
+            ]
+        }
     }
-  ],
-  "autoload": {
-    "psr-4": {
-      "RodrigoPedra\\LaravelSimpleACL\\": "src/LaravelSimpleACL/"
-    }
-  },
-  "require": {
-    "php": ">=5.5.0",
-    "illuminate/support": "^5.4|^6.0",
-    "illuminate/config": "^5.4|^6.0",
-    "illuminate/database": "^5.4|^6.0",
-    "illuminate/http": "^5.4|^6.0"
-  },
-  "extra": {
-    "laravel": {
-      "providers": [
-        "RodrigoPedra\\LaravelSimpleACL\\SimpleACLServiceProvider"
-      ]
-    }
-  }
 }
