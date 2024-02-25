@@ -22,7 +22,7 @@ return new class extends Migration
             ->create('permission_user', function (Blueprint $table) use ($userModel) {
                 $userForeignKey = $userModel->getForeignKey();
 
-                $table->unsignedInteger('permission_id');
+                $table->unsignedBigInteger('permission_id');
                 $table->unsignedBigInteger($userForeignKey);
 
                 $table->primary([$userForeignKey, 'permission_id']);

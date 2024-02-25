@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::connection('simple-acl')
             ->create('permissions', function (Blueprint $table) {
-                $table->increments('id');
+                $table->id();
 
                 $table->unsignedSmallInteger('sort_index')->nullable();
 

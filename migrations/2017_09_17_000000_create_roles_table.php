@@ -15,11 +15,9 @@ return new class extends Migration
     {
         Schema::connection('simple-acl')
             ->create('roles', function (Blueprint $table) {
-                $table->increments('id');
+                $table->id();
 
                 $table->unsignedSmallInteger('sort_index')->nullable();
-
-                $table->boolean('is_admin')->default(false);
 
                 $table->string('label')->unique();
                 $table->string('description');

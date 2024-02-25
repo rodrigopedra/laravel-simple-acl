@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::connection('simple-acl')
             ->create('permission_role', function (Blueprint $table) {
-                $table->unsignedInteger('permission_id');
-                $table->unsignedInteger('role_id');
+                $table->unsignedBigInteger('permission_id');
+                $table->unsignedBigInteger('role_id');
 
                 $table->primary(['role_id', 'permission_id']);
 
