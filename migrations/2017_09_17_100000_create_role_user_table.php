@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRoleUserTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -23,7 +23,7 @@ class CreateRoleUserTable extends Migration
                 $userForeignKey = $userModel->getForeignKey();
 
                 $table->unsignedInteger('role_id');
-                $table->unsignedInteger($userForeignKey);
+                $table->unsignedBigInteger($userForeignKey);
 
                 $table->primary([$userForeignKey, 'role_id']);
 
@@ -46,4 +46,4 @@ class CreateRoleUserTable extends Migration
     {
         Schema::connection('simple-acl')->dropIfExists('role_user');
     }
-}
+};

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePermissionUserTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -23,7 +23,7 @@ class CreatePermissionUserTable extends Migration
                 $userForeignKey = $userModel->getForeignKey();
 
                 $table->unsignedInteger('permission_id');
-                $table->unsignedInteger($userForeignKey);
+                $table->unsignedBigInteger($userForeignKey);
 
                 $table->primary([$userForeignKey, 'permission_id']);
 
@@ -46,4 +46,4 @@ class CreatePermissionUserTable extends Migration
     {
         Schema::connection('simple-acl')->dropIfExists('permission_user');
     }
-}
+};
