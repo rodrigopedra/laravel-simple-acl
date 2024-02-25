@@ -119,6 +119,6 @@ class Role extends Model
 
     public function scopeOrdered(Builder $builder): void
     {
-        $builder->orderBy('sort_index')->orderBy('description');
+        $builder->orderBy('sort_index')->orderBy('label');
     }
 }
