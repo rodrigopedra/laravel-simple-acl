@@ -3,27 +3,25 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use RodrigoPedra\LaravelSimpleACL\Models\Permission;
+use RodrigoPedra\LaravelSimpleACL\Models\Role;
 
-class CreatePermissionRoleTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::connection('simple-acl')
             ->create('permission_role', function (Blueprint $table) {
-                $table->unsignedInteger('permission_id');
-                $table->unsignedInteger('role_id');
+                $table->foreignIdFor(Permission::class)->constrained();
+                $table->foreignIdFor(Role::class)->constrained();
 
                 $table->primary(['role_id', 'permission_id']);
 
                 $table->timestamps();
-
-                $table->foreign('permission_id')->references('id')->on('permissions');
-                $table->foreign('role_id')->references('id')->on('roles');
             });
     }
 
@@ -32,8 +30,8 @@ class CreatePermissionRoleTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::connection('simple-acl')->dropIfExists('permission_role');
     }
-}
+};

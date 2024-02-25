@@ -2,5 +2,5 @@
 
 return [
     'db-connection' => null,
-    'user-class' => 'App\\User',
+    'user-class' => 'App\\Models\\User',
 ];
