@@ -25,7 +25,7 @@ class LoadSimpleACL
         $user->loadACLCache();
 
         foreach ($user->permissions as $permission) {
-            Gate::define($permission->label, fn () => $user->hasPermission($permission));
+            Gate::define($permission->label, static fn () => $user->hasPermission($permission));
         }
 
         return $next($request);

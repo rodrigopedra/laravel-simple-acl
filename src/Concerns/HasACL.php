@@ -39,7 +39,7 @@ trait HasACL
         $permissionsKeys = $this->roles
             ->pluck('permissions')
             ->flatten(1)
-            ->map(fn (Permission $permission) => $permission->getKey());
+            ->map(static fn (Permission $permission) => $permission->getKey());
 
         $this->permissions()->sync($permissionsKeys->unique()->all());
 
@@ -114,7 +114,7 @@ trait HasACL
     {
         $builder->whereHas(
             'roles',
-            fn (BuilderContract $query) => $query->where('role_user.role_id', $role->getKey()),
+            static fn (BuilderContract $query) => $query->where('role_user.role_id', $role->getKey()),
         );
     }
 
@@ -122,7 +122,7 @@ trait HasACL
     {
         $builder->whereHas(
             'permissions',
-            fn (BuilderContract $query) => $query->where('permission_user.permission_id', $permission->getKey()),
+            static fn (BuilderContract $query) => $query->where('permission_user.permission_id', $permission->getKey()),
         );
     }
 
@@ -130,12 +130,12 @@ trait HasACL
     {
         $this->setRelation(
             'roles',
-            Cache::rememberForever($this->makeACLCacheKey('roles'), fn () => $this->roles()->get()),
+            Cache::rememberForever($this->makeACLCacheKey('roles'), static fn () => $this->roles()->get()),
         );
 
         $this->setRelation(
             'permissions',
-            Cache::rememberForever($this->makeACLCacheKey('permissions'), fn () => $this->permissions()->get()),
+            Cache::rememberForever($this->makeACLCacheKey('permissions'), static fn () => $this->permissions()->get()),
         );
     }
 
