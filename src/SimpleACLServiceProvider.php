@@ -2,13 +2,14 @@
 
 namespace RodrigoPedra\LaravelSimpleACL;
 
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Support\ServiceProvider;
 
 class SimpleACLServiceProvider extends ServiceProvider
 {
-    public function boot(): void
+    public function boot(Repository $config): void
     {
-        $this->setDatabaseConnection();
+        $this->setDatabaseConnection($config);
 
         if (! $this->app->runningInConsole()) {
             return;
@@ -26,11 +27,8 @@ class SimpleACLServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__ . '/../config/simple-acl.php', 'simple-acl');
     }
 
-    private function setDatabaseConnection(): void
+    private function setDatabaseConnection(Repository $config): void
     {
-        /** @var \Illuminate\Config\Repository $config */
-        $config = $this->app['config'];
-
         $connection = $config->get('simple-acl.db-connection') ?? $config->get('database.default');
         $settings = $config->get('database.connections.' . $connection);
 
