@@ -25,7 +25,7 @@
 ## Usage
 
 Create roles and permissions through the included `RodrigoPedra\LaravelSimpleACL\Models\Role` and
-`\RodrigoPedra\LaravelSimpleACL\Models\Permission` Eloquent models.
+`RodrigoPedra\LaravelSimpleACL\Models\Permission` Eloquent models.
 
 Permissions are meant to be grouped into a role, you can create a database seeder, or migration for
 your initial setup, for example:
@@ -61,7 +61,7 @@ $user->attachRole(Role::hasLabel('admin')->first());
 $user->detachRole(Role::hasLabel('leader')->first());
 ```
 
-If you add the `RodrigoPedra\LaravelSimpleACL\Http\Middleware\LoadSimpleACL` middleware 
+If you add the `\RodrigoPedra\LaravelSimpleACL\Http\Middleware\LoadSimpleACL` middleware 
 to your middleware stack, you can use Laravel's gate to check for permissions:
 
 ```php
