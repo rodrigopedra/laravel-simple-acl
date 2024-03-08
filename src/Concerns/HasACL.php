@@ -130,12 +130,12 @@ trait HasACL
     {
         $this->setRelation(
             'roles',
-            Cache::rememberForever($this->makeACLCacheKey('roles'), static fn () => $this->roles()->get()),
+            Cache::rememberForever($this->makeACLCacheKey('roles'), fn () => $this->roles()->get()),
         );
 
         $this->setRelation(
             'permissions',
-            Cache::rememberForever($this->makeACLCacheKey('permissions'), static fn () => $this->permissions()->get()),
+            Cache::rememberForever($this->makeACLCacheKey('permissions'), fn () => $this->permissions()->get()),
         );
     }
 
