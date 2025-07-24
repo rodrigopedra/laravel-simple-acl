@@ -2,7 +2,7 @@
 
 ## Requirements
 
-- PHP 8.1
+- PHP 8.1+
 - Laravel 9+
 
 ## Installation
